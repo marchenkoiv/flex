@@ -1,0 +1,218 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    INCORRECT
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> SNAME EQUALS NAME LPAREN endparameter RPAREN SEMICOLON
+Rule 2     statement -> SNAME EQUALS NAME LPAREN RPAREN SEMICOLON
+Rule 3     simpleparameter -> NAME COMMA
+Rule 4     simpleparameter -> NUMBER COMMA
+Rule 5     parameter -> simpleparameter
+Rule 6     parameter -> parameter simpleparameter
+Rule 7     endparameter -> parameter NUMBER
+Rule 8     endparameter -> parameter NAME
+Rule 9     endparameter -> NAME
+Rule 10    endparameter -> NUMBER
+
+Terminals, with rules where they appear
+
+COMMA                : 3 4
+EQUALS               : 1 2
+INCORRECT            : 
+LPAREN               : 1 2
+NAME                 : 1 2 3 8 9
+NUMBER               : 4 7 10
+RPAREN               : 1 2
+SEMICOLON            : 1 2
+SNAME                : 1 2
+error                : 
+
+Nonterminals, with rules where they appear
+
+endparameter         : 1
+parameter            : 6 7 8
+simpleparameter      : 5 6
+statement            : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . SNAME EQUALS NAME LPAREN endparameter RPAREN SEMICOLON
+    (2) statement -> . SNAME EQUALS NAME LPAREN RPAREN SEMICOLON
+
+    SNAME           shift and go to state 2
+
+    statement                      shift and go to state 1
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> SNAME . EQUALS NAME LPAREN endparameter RPAREN SEMICOLON
+    (2) statement -> SNAME . EQUALS NAME LPAREN RPAREN SEMICOLON
+
+    EQUALS          shift and go to state 3
+
+
+state 3
+
+    (1) statement -> SNAME EQUALS . NAME LPAREN endparameter RPAREN SEMICOLON
+    (2) statement -> SNAME EQUALS . NAME LPAREN RPAREN SEMICOLON
+
+    NAME            shift and go to state 4
+
+
+state 4
+
+    (1) statement -> SNAME EQUALS NAME . LPAREN endparameter RPAREN SEMICOLON
+    (2) statement -> SNAME EQUALS NAME . LPAREN RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 5
+
+
+state 5
+
+    (1) statement -> SNAME EQUALS NAME LPAREN . endparameter RPAREN SEMICOLON
+    (2) statement -> SNAME EQUALS NAME LPAREN . RPAREN SEMICOLON
+    (7) endparameter -> . parameter NUMBER
+    (8) endparameter -> . parameter NAME
+    (9) endparameter -> . NAME
+    (10) endparameter -> . NUMBER
+    (5) parameter -> . simpleparameter
+    (6) parameter -> . parameter simpleparameter
+    (3) simpleparameter -> . NAME COMMA
+    (4) simpleparameter -> . NUMBER COMMA
+
+    RPAREN          shift and go to state 8
+    NAME            shift and go to state 6
+    NUMBER          shift and go to state 10
+
+    endparameter                   shift and go to state 7
+    parameter                      shift and go to state 9
+    simpleparameter                shift and go to state 11
+
+state 6
+
+    (9) endparameter -> NAME .
+    (3) simpleparameter -> NAME . COMMA
+
+    RPAREN          reduce using rule 9 (endparameter -> NAME .)
+    COMMA           shift and go to state 12
+
+
+state 7
+
+    (1) statement -> SNAME EQUALS NAME LPAREN endparameter . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 13
+
+
+state 8
+
+    (2) statement -> SNAME EQUALS NAME LPAREN RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 14
+
+
+state 9
+
+    (7) endparameter -> parameter . NUMBER
+    (8) endparameter -> parameter . NAME
+    (6) parameter -> parameter . simpleparameter
+    (3) simpleparameter -> . NAME COMMA
+    (4) simpleparameter -> . NUMBER COMMA
+
+    NUMBER          shift and go to state 15
+    NAME            shift and go to state 16
+
+    simpleparameter                shift and go to state 17
+
+state 10
+
+    (10) endparameter -> NUMBER .
+    (4) simpleparameter -> NUMBER . COMMA
+
+    RPAREN          reduce using rule 10 (endparameter -> NUMBER .)
+    COMMA           shift and go to state 18
+
+
+state 11
+
+    (5) parameter -> simpleparameter .
+
+    NUMBER          reduce using rule 5 (parameter -> simpleparameter .)
+    NAME            reduce using rule 5 (parameter -> simpleparameter .)
+
+
+state 12
+
+    (3) simpleparameter -> NAME COMMA .
+
+    NUMBER          reduce using rule 3 (simpleparameter -> NAME COMMA .)
+    NAME            reduce using rule 3 (simpleparameter -> NAME COMMA .)
+
+
+state 13
+
+    (1) statement -> SNAME EQUALS NAME LPAREN endparameter RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 19
+
+
+state 14
+
+    (2) statement -> SNAME EQUALS NAME LPAREN RPAREN SEMICOLON .
+
+    $end            reduce using rule 2 (statement -> SNAME EQUALS NAME LPAREN RPAREN SEMICOLON .)
+
+
+state 15
+
+    (7) endparameter -> parameter NUMBER .
+    (4) simpleparameter -> NUMBER . COMMA
+
+    RPAREN          reduce using rule 7 (endparameter -> parameter NUMBER .)
+    COMMA           shift and go to state 18
+
+
+state 16
+
+    (8) endparameter -> parameter NAME .
+    (3) simpleparameter -> NAME . COMMA
+
+    RPAREN          reduce using rule 8 (endparameter -> parameter NAME .)
+    COMMA           shift and go to state 12
+
+
+state 17
+
+    (6) parameter -> parameter simpleparameter .
+
+    NUMBER          reduce using rule 6 (parameter -> parameter simpleparameter .)
+    NAME            reduce using rule 6 (parameter -> parameter simpleparameter .)
+
+
+state 18
+
+    (4) simpleparameter -> NUMBER COMMA .
+
+    NUMBER          reduce using rule 4 (simpleparameter -> NUMBER COMMA .)
+    NAME            reduce using rule 4 (simpleparameter -> NUMBER COMMA .)
+
+
+state 19
+
+    (1) statement -> SNAME EQUALS NAME LPAREN endparameter RPAREN SEMICOLON .
+
+    $end            reduce using rule 1 (statement -> SNAME EQUALS NAME LPAREN endparameter RPAREN SEMICOLON .)
+
