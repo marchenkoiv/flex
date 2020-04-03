@@ -43,8 +43,6 @@ def t_error(t):
 lexer = lex.lex()
 
 
-# dictionary of names
-names = {}
 
 
 def p_statement_assign(t):
@@ -133,6 +131,6 @@ with open('functions.txt','w') as i:
         i.write('{}:{}\n'.format(key,val))
         a=a+val
         b=b+1
-print(b," lines were correct")
-print(a," functions were correct")
+print(a," lines were correct")
+print(b," functions were correct")
 f.close()
